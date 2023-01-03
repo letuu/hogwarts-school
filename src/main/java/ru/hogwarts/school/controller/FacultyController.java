@@ -31,6 +31,11 @@ public class FacultyController {
         return facultyService.getByColor(color);
     }
 
+    @GetMapping("/search/{searchNameOrColor}")
+    public Faculty findFacultyByNameOrColor(@PathVariable("searchNameOrColor") String searchNameOrColor) {
+        return this.facultyService.findFacultyByNameOrColor(searchNameOrColor);
+    }
+
     @PostMapping
     public Faculty createFaculty(@RequestBody Faculty faculty) {
         return this.facultyService.addFaculty(faculty);

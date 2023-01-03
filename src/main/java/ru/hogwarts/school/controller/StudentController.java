@@ -44,6 +44,12 @@ public class StudentController {
         return studentService.getByAge(age);
     }
 
+    @GetMapping("/age/between")
+    public Collection<Student> findStudentByAgeBetween(
+            @RequestParam("minAge") int minAge, @RequestParam("maxAge") int maxAge) {
+        return this.studentService.findStudentsByAgeBetween(minAge, maxAge);
+    }
+
     @PostMapping
     public Student createStudent(@RequestBody Student student) {
         return this.studentService.addStudent(student);

@@ -50,4 +50,10 @@ public class FacultyService {
     public Collection<Faculty> getByColor(String color) {
         return facultyRepository.findByColor(color);
     }
+
+    public Faculty findFacultyByNameOrColor(String nameOrColor) {
+        return this.facultyRepository
+                .findByNameIgnoreCaseOrColorIgnoreCase(nameOrColor, nameOrColor)
+                .orElseThrow(FacultyNotFoundException::new);
+    }
 }

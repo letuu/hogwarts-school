@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.hogwarts.school.exception.FacultyNotFoundException;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.Collection;
@@ -51,9 +52,17 @@ public class FacultyService {
         return facultyRepository.findByColor(color);
     }
 
+    public Collection<Faculty> getByName(String name) {
+        return facultyRepository.findByName(name);
+    }
+
     public Faculty findFacultyByNameOrColor(String nameOrColor) {
         return this.facultyRepository
                 .findByNameIgnoreCaseOrColorIgnoreCase(nameOrColor, nameOrColor)
                 .orElseThrow(FacultyNotFoundException::new);
+    }
+
+    public Collection<Student> getStudentByFacultyId(long id) {
+        return this.facultyRepository.findById(id).get().getStudents();
     }
 }

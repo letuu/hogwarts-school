@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
@@ -45,9 +46,14 @@ public class StudentController {
     }
 
     @GetMapping("/age/between")
-    public Collection<Student> findStudentByAgeBetween(
+    public Collection<Student> findStudentsByAgeBetween(
             @RequestParam("minAge") int minAge, @RequestParam("maxAge") int maxAge) {
         return this.studentService.findStudentsByAgeBetween(minAge, maxAge);
+    }
+
+    @GetMapping("/getFaculty/{id}")
+    public Faculty getFacultyByStudentId(@PathVariable("id") long studentId) {
+        return this.studentService.getFacultyByStudentId(studentId);
     }
 
     @PostMapping

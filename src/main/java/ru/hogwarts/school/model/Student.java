@@ -13,7 +13,7 @@ public class Student {
     private String name;
     private int age;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)                 //с FetchType.LAZY при получении факультета студента ошибка 500
     @JoinColumn(name = "faculty_id", nullable = false)
     @JsonBackReference
     private Faculty faculty;

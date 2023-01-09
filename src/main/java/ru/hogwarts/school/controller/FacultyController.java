@@ -23,7 +23,7 @@ public class FacultyController {
     }
 
     @GetMapping("/{id}")
-    public Faculty getFaculty(@PathVariable("id") long id) {
+    public Faculty getFaculty(@PathVariable("id") Long id) {
         return this.facultyService.getFaculty(id);
     }
 
@@ -38,7 +38,7 @@ public class FacultyController {
     }
 
     @GetMapping("/getStudents/{id}")
-    public Collection<Student> getStudentByFacultyId(@PathVariable("id") long facultyId) {
+    public Collection<Student> getStudentByFacultyId(@PathVariable("id") Long facultyId) {
         return this.facultyService.getStudentByFacultyId(facultyId);
     }
 
@@ -53,12 +53,12 @@ public class FacultyController {
     }
 
     @PutMapping("/{id}")
-    public Faculty updateFaculty(@PathVariable("id") long id, @RequestBody Faculty faculty) {
+    public Faculty updateFaculty(@PathVariable("id") Long id, @RequestBody Faculty faculty) {
         return this.facultyService.editFaculty(id, faculty);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteFaculty(@PathVariable("id") long id) {
+    public ResponseEntity<Void> deleteFaculty(@PathVariable("id") Long id) {
         this.facultyService.removeFaculty(id);
         return ResponseEntity.noContent().build();
     }

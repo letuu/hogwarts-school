@@ -36,7 +36,7 @@ public class StudentController {
                     description = "Student model",
                     content = @Content(schema = @Schema(implementation = Student.class))),
             @ApiResponse(responseCode = "404", description = "Student not found", content = @Content())})
-    public Student getStudent(@PathVariable("id") long id) {
+    public Student getStudent(@PathVariable("id") Long id) {
         return this.studentService.getStudent(id);
     }
 
@@ -52,7 +52,7 @@ public class StudentController {
     }
 
     @GetMapping("/getFaculty/{id}")
-    public Faculty getFacultyByStudentId(@PathVariable("id") long studentId) {
+    public Faculty getFacultyByStudentId(@PathVariable("id") Long studentId) {
         return this.studentService.getFacultyByStudentId(studentId);
     }
 
@@ -62,12 +62,12 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
-    public Student updateStudent(@PathVariable("id") long id, @RequestBody Student student) {
+    public Student updateStudent(@PathVariable("id") Long id, @RequestBody Student student) {
         return this.studentService.editStudent(id, student);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteStudent(@PathVariable("id") long id) {
+    public ResponseEntity<Void> deleteStudent(@PathVariable("id") Long id) {
         this.studentService.removeStudent(id);
         return ResponseEntity.noContent().build();
     }

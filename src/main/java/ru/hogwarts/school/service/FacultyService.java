@@ -62,7 +62,7 @@ public class FacultyService {
                 .orElseThrow(FacultyNotFoundException::new);
     }
 
-    public Collection<Student> getStudentByFacultyId(long id) {
+    public Collection<Student> getStudentByFacultyId(Long id) {
         return this.facultyRepository.findById(id).get().getStudents();
     }
 }

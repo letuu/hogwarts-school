@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String name;
     private int age;
 
@@ -18,11 +18,26 @@ public class Student {
     @JsonBackReference
     private Faculty faculty;
 
-    public long getId() {
+    public Student() {
+    }
+    public Student(String name, int age) {
+        this(name, age, null);
+    }
+    public Student(String name, int age, Faculty faculty) {
+        this(null, name, age, faculty);
+    }
+    public Student(Long id, String name, int age, Faculty faculty) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.faculty = faculty;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -55,7 +70,7 @@ public class Student {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return id == student.id && age == student.age && Objects.equals(name, student.name);
+        return age == student.age && Objects.equals(id, student.id) && Objects.equals(name, student.name);
     }
 
     @Override

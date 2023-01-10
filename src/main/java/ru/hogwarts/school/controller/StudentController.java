@@ -56,6 +56,24 @@ public class StudentController {
         return this.studentService.getFacultyByStudentId(studentId);
     }
 
+    @GetMapping("/count")
+    @Operation(summary = "Returns number of all students", tags = "student")
+    public Long getNumberAllStudents() {
+        return this.studentService.getNumberAllStudents();
+    }
+
+    @GetMapping("/average-age")
+    @Operation(summary = "Returns the average age of students", tags = "student")
+    public double getAverageAgeStudents() {
+        return this.studentService.getAverageAgeStudents();
+    }
+
+    @GetMapping("/last/5")
+    @Operation(summary = "Returns the last 5 students", tags = "student")
+    public Collection<Student> getLastFiveStudents() {
+        return this.studentService.getLastFiveStudents();
+    }
+
     @PostMapping
     public Student createStudent(@RequestBody Student student) {
         return this.studentService.addStudent(student);

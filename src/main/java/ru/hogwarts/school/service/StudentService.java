@@ -60,7 +60,7 @@ public class StudentService {
         return this.studentRepository.averageAge();
     }
 
-    public Collection<Student> getLastFiveStudents() {
-        return studentRepository.findLastFiveStudents();
+    public Collection<Student> getLastStudents(int number) {
+        return studentRepository.findLastStudents(number);
     }
 }

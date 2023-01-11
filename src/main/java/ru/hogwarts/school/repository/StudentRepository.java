@@ -19,8 +19,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query(value = "SELECT avg(age) FROM student", nativeQuery = true)
     double averageAge();
 
-    @Query(value = "SELECT * FROM student ORDER BY id DESC limit 5", nativeQuery = true)
-    List<Student> findLastFiveStudents();
-//    List<Student> findLastFiveStudents(int number);
-    //Найти как в @Query передать переменную number в limit, чтобы задавать количество студентов в эндпоинте
+    @Query(value = "SELECT * FROM student ORDER BY id DESC limit ?1", nativeQuery = true)
+    List<Student> findLastStudents(int number);
+    // limit ?1 - так на место limit будет подставляться первый аргумент метода
 }

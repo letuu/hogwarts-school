@@ -68,10 +68,10 @@ public class StudentController {
         return this.studentService.getAverageAgeStudents();
     }
 
-    @GetMapping("/last/5")
-    @Operation(summary = "Returns the last 5 students", tags = "student")
-    public Collection<Student> getLastFiveStudents() {
-        return this.studentService.getLastFiveStudents();
+    @GetMapping("/last/{number}")
+    @Operation(summary = "Returns the last (number) students", tags = "student")
+    public Collection<Student> getLastStudents(@PathVariable("number") int number) {
+        return this.studentService.getLastStudents(number);
     }
 
     @PostMapping

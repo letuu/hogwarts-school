@@ -68,10 +68,27 @@ public class StudentController {
         return this.studentService.getAverageAgeStudents();
     }
 
+    @GetMapping("/average-age-stream")
+    @Operation(summary = "Returns the average age of students via stream", tags = "student")
+    public double getAverageAgeStudentsStream() {
+        return this.studentService.getAverageAgeStudentsStream();
+    }
+
     @GetMapping("/last/{number}")
     @Operation(summary = "Returns the last (number) students", tags = "student")
     public Collection<Student> getLastStudents(@PathVariable("number") int number) {
         return this.studentService.getLastStudents(number);
+    }
+
+    @GetMapping("/names/{letter}")
+    @Operation(summary = "Return all names of all students whose first name starts with letter A", tags = "student")
+    public Collection<String> getNamesStudentsWithLetterA(@PathVariable("letter") String firstLetter) {
+        return this.studentService.getNamesWithLetterA(firstLetter);
+    }
+
+    @GetMapping("/sum-numbers")
+    public int getSumOfNumbers () {
+        return this.studentService.getSumOfNumbers();
     }
 
     @PostMapping

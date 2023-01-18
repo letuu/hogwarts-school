@@ -10,6 +10,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.Collection;
+import java.util.Comparator;
 
 @Service
 public class FacultyService {
@@ -79,5 +80,13 @@ public class FacultyService {
         logger.info("Was invoked method to get students by faculty id = " + id);
         logger.warn("If the faculty with id={} does not exist, then there will be an error with code 500", id);
         return this.facultyRepository.findById(id).get().getStudents();
+    }
+
+    public String getLongestName() {
+        logger.info("Was invoked method to get the longest faculty name");
+        return facultyRepository.findAll().stream()
+                .map(f -> f.getName())
+                .max(Comparator.comparingInt(n -> n.length()))
+                .orElseThrow(FacultyNotFoundException::new);
     }
 }

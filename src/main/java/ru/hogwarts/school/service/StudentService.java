@@ -9,6 +9,8 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class StudentService {
@@ -77,8 +79,36 @@ public class StudentService {
         return this.studentRepository.averageAge();
     }
 
+    public double getAverageAgeStudentsStream() {
+        logger.info("Was invoked method to get the average age of students via stream");
+        return this.studentRepository.findAll().stream()
+//                .map(s -> s.getAge())
+                .map(Student::getAge)
+                .mapToDouble(a -> a)
+                .average()
+                .orElse(0);
+    }
+
     public Collection<Student> getLastStudents(int number) {
         logger.info("Was invoked method to get the last {} students", number);
         return studentRepository.findLastStudents(number);
+    }
+
+    public Collection<String> getNamesWithLetterA(String firstLetter) {
+        logger.info("Was invoked method to get of names with the letter '{}'", firstLetter);
+        return this.studentRepository.findAll().stream()
+                .map(s -> s.getName().toUpperCase())
+                .filter(n -> n.startsWith(firstLetter.toUpperCase()))
+                .sorted()
+                .toList();
+    }
+
+    //Вычисление формулы со способом уменьшения времени ответа эндпоинта в виде добавления parallel()
+    public int getSumOfNumbers() {
+        int sum = Stream.iterate(1, a -> a + 1)
+                .limit(1_000_000)
+                .parallel()
+                .reduce(0, (a, b) -> a + b);    //или .reduce(0, Integer::sum)
+        return sum;
     }
 }

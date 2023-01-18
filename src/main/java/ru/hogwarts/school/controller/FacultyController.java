@@ -47,6 +47,11 @@ public class FacultyController {
         return this.facultyService.findFacultyByNameOrColor(searchNameOrColor);
     }
 
+    @GetMapping("/longest-name")
+    public String getLongestNameFaculty() {
+        return this.facultyService.getLongestName();
+    }
+
     @PostMapping
     public Faculty createFaculty(@RequestBody Faculty faculty) {
         return this.facultyService.addFaculty(faculty);

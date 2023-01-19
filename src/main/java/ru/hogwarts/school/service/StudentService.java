@@ -9,7 +9,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.List;
 import java.util.stream.Stream;
 
 @Service
@@ -110,5 +110,37 @@ public class StudentService {
                 .parallel()
                 .reduce(0, (a, b) -> a + b);    //или .reduce(0, Integer::sum)
         return sum;
+    }
+
+    public void printNamesStudents() {
+        List<Student> students = this.studentRepository.findAll();
+        List<String> namesStudents = students.stream()
+                .map(Student::getName)
+                .toList();
+        System.out.println(namesStudents.get(0));
+        System.out.println(namesStudents.get(1));
+        new Thread(() -> {
+            System.out.println(namesStudents.get(2));
+            System.out.println(namesStudents.get(3));
+        }).start();
+        new Thread(() -> {
+            System.out.println(namesStudents.get(4));
+            System.out.println(namesStudents.get(5));
+        }).start();
+    }
+
+    public void printNamesStudentsSynchronized() {
+        List<Student> students = this.studentRepository.findAll();
+        List<String> namesStudents = students.stream()
+                .map(Student::getName)
+                .toList();
+        printNames(namesStudents, 0, 1);
+        new Thread(() -> printNames(namesStudents, 2, 3)).start();
+        new Thread(() -> printNames(namesStudents, 4, 5)).start();
+    }
+
+    private synchronized void printNames(List<String> names, int index1, int index2) {
+        System.out.println(names.get(index1));
+        System.out.println(names.get(index2));
     }
 }

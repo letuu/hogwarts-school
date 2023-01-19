@@ -80,6 +80,20 @@ public class StudentController {
         return this.studentService.getLastStudents(number);
     }
 
+    @GetMapping("/names")
+    @Operation(summary = "Print the names of students", tags = "student")
+    public ResponseEntity<Void> printNamesStudents() {
+        this.studentService.printNamesStudents();
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/names-synchro")
+    @Operation(summary = "Print the names of students synchronized", tags = "student")
+    public ResponseEntity<Void> printNamesStudentsSynchronized() {
+        this.studentService.printNamesStudentsSynchronized();
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/names/{letter}")
     @Operation(summary = "Return all names of all students whose first name starts with letter A", tags = "student")
     public Collection<String> getNamesStudentsWithLetterA(@PathVariable("letter") String firstLetter) {
